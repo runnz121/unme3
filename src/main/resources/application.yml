@@ -1,0 +1,60 @@
+spring:
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/unme?autoReconnect=true
+    username: root
+    #localComputer MYSQL
+    password: jongbin121!
+    #MAC MYSQL :
+    #password: 698427
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      #ddl-auto: create-drop #????? ?? ???? ?? ??? ??? ?? ??
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    defer-datasource-initialization: true
+
+
+  security:
+    user:
+      name: esanghaesee
+      password: 1234
+
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 71318484453-sn62ah5b0rdiktov48jesea0us3vauph.apps.googleusercontent.com
+            client-secret: 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
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+
+
+
+sec:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpiry: 864000000
+
+  oauth2:
+    # After successfully authenticating with the OAuth2 Provider,
+    # we'll be generating an auth token for the user and sending the token to the
+    # redirectUri mentioned by the client in the /oauth2/authorize request.
+    # We're not using cookies because they won't work well in mobile clients.
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect
+      - myandroidapp://oauth2/redirect
+      - myiosapp://oauth2/redirect
+
+jwt:
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+#  header: Authorization
+#  token-validity-in-seconds: 86400
