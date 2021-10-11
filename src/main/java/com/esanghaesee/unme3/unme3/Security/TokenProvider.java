@@ -3,7 +3,6 @@ package com.esanghaesee.unme3.unme3.Security;
 
 import com.esanghaesee.unme3.unme3.Security.config.SecProperties;
 import io.jsonwebtoken.*;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 

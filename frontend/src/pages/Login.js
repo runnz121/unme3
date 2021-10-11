@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components"
 import '../App.css';
 
@@ -18,8 +18,12 @@ import GoogleOauth from '../components/GoogleBox';
 import { loginUser } from '../_actions/user_action';
 import { useDispatch } from 'react-redux';
 
-import {withRouter} from "react-router-dom";
+import {withRouter,Link} from "react-router-dom";
 import axios from 'axios';
+
+
+import { actionCreators as userActions } from "../redux/modules/user";
+
 
 const Container = styled.div`
   display: flex;
@@ -33,99 +37,102 @@ const Container = styled.div`
 
 
 function Login(props) {
+  const location = useLocation();
 
-    const location = useLocation();
-    const {
-      register,
-      handleSubmit,
-      formState,
-      getValues,
-      clearErrors,
-    } = useForm({
+  const [passwordShown, setPasswordShown] = useState(false);
+  const { register, handleSubmit, formState, getValues, clearErrors } = useForm(
+    {
       mode: "onChange",
       defaultValues: {
         email: location?.state?.email || "",
         password: location?.state?.password || "",
       },
-    });
-    const dispatch = useDispatch();
+    }
+  );
+  const dispatch = useDispatch();
 
-    // const onSubmit = () => {
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
 
-    //   const {email, password} = getValues();
-    //   dispatch(loginUser({email, password})).then(response => console.log(response.payload.authToken))
-    // }
-    const onSubmit = () => {
+  // const onSubmit = () => {
+  //   const{email, password} = getValues();
+  //   dispatch(userActions.loginDB(email, password))
+  // }
 
-        const {email, password} = getValues();
-        dispatch(loginUser({
-          email, password,
-        }))
-        .then(response => {
-          const accessToken = response.payload.authToken;
-          console.log(accessToken)
-          if (accessToken.length != null) {
-            axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-            alert("welcome")
-           props.history.push("/"); 
-          }}).catch( error => {
-            alert("not signup user");
-          });
-     }
-    
+  const onSubmit = () => {
 
-     const clearLoginError = () => {
-       clearErrors("result");
-     };
+      const {email, password} = getValues();
+      dispatch(loginUser({
+        email, password,
+      }))
+      .then(response => {
+        const tokenFromBackend = response.payload.authToken;
+        //console.log(tokenFromBackend);
+        if (tokenFromBackend.length != null) {
+          // const authtoken = (axios.defaults.headers.common[
+          //   "Authorization"
+          // ] = `Bearer ${tokenFromBackend}`);
+          //console.log(authtoken)
+          localStorage.setItem('accessToken', tokenFromBackend);
+          alert("welcome with loginform");
+          props.history.push("/mypage");
+        }}).catch( error => {
+          alert("not signup user");
+        });
+   }
 
+  return (
+    <Container>
+      <PageTitle title="Login" />
+      <FormBox>
+        <Fonts>EsanghaeSee</Fonts>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormError message={formState.errors?.email?.message} />
+          <Input
+            {...register("email", {
+              required: "Email is required",
+              minLength: 5,
+            })}
+            onChange={clearLoginError}
+            name="email"
+            type="text"
+            placeholder="Email"
+            hasError={Boolean(formState.errors?.email?.message)}
+          />
 
-    return (
-      <Container>
-        <PageTitle title="Login" />
-        <FormBox>
-          <Fonts>EsanghaeSee</Fonts>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormError message={formState.errors?.email?.message} />
-            <Input
-              {...register("email", {
-                required: "Email is required",
-                minLength: 5,
-              })}
-              onChange={clearLoginError}
-              name="email"
-              type="text"
-              placeholder="Email"
-              hasError={Boolean(formState.errors?.email?.message)}
-            />
-
-            <Input
-              {...register("password", {
-                required: "Password is required",
-                //minLength: 8,
-              })}
-              onChange={clearLoginError}
-              name="password"
-              type="password"
-              placeholder="Password"
-              hasError={Boolean(formState.errors?.password?.message)}
-            />
-            <FormError message={formState.errors?.password?.message} />
-            <Btn
-              type="submit"
-              value={"Login"}
-              disabled={formState.isValid || !formState.isDirty}
-            />
-            <FormError message={formState.errors?.result?.message} />
-          </form>
-          <Seperator />
-          <BottomBox 
+          <Input
+            {...register("password", {
+              required: "Password is required",
+              //minLength: 8,
+            })}
+            onChange={clearLoginError}
+            name="password"
+            type="password"
+            placeholder="Password"
+            // //https://codesandbox.io/s/showhide-password-on-toggle-in-react-hooks-95qcz?file=/src/App.js:1032-1084
+            // //참고해서기능 넣을것
+            // type={passwordShown ? "text" : "password"}
+            hasError={Boolean(formState.errors?.password?.message)}
+          />
+          <FormError message={formState.errors?.password?.message} />
+          <Btn
+            type="submit"
+            value={"Login"}
+            disabled={formState.isValid || !formState.isDirty}
+          />
+          <FormError message={formState.errors?.result?.message} />
+        </form>
+        <Seperator />
+        <BottomBox
           cta="계정이 없으신가요?"
           linkText="Sign up"
-          link={"/signup"} />
-          <GoogleOauth/>
-        </FormBox>
-      </Container>
-    );
+          link={"/signup"}
+        />
+        <GoogleOauth linkText="Log in with Google" />
+      </FormBox>
+    </Container>
+  );
 }
 
 export default withRouter(Login)

@@ -2,40 +2,39 @@ import axios from "axios";
 import styled from "styled-components";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom"
+import propTypes from "prop-types"
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   lign-items: center;
   justify-content: flex-start;
-   input{
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    justify-items: center;
-    flex-direction: column;
-    align-items: center;
 `;
 
-const GoogleOauthstyle = styled.input`
+const GoogleOauthstyle = styled.div`
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  width: 120%;
-  background-color: whitef;
+  width: 100%;
   text-align: center;
   color: #787878;
-  padding-right: 40px;
-  padding-bottom : 15px;
   font-size: 15px;
   font-weight: 600;
+  padding-right:10px;
+  padding-top : 20px;
+ 
 `;
 
 const IconInput = styled.div`
-  margin-top: 35px;
-  margin-left: -20px;
-  margin-right: 40px;
-  padding-top : 4px;
+  padding-right: 10px;
+  width : 20%;
+`;
+
+const TextInput = styled.div`
+  margin-left: 100px;
+  margin-top : -23px;
+  margin-left : 50px;
 `;
 
 
@@ -48,24 +47,49 @@ const IconInput = styled.div`
 //   API_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URI;
 
 
+//http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect
+// function GoogleOauth() {
+//   const onClickHandler = (e) => {
+//     axios
+//       .get(
+//         "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+//       )
+//       .then((res) => {
+//         console.log(res);
+//       });
+//   };
 
-function GoogleOauth() {
-  const onClickHandler = (e) => {
-    axios.get("/api/oauth2/authorization/google").then((res) => {
-      console.log(res);
-    });
-  };
+const GOOGLE_AUTH_URL =
+  "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect";
+
+// function GoogleOauth(){
+//   const onClickHandler = (e) => {
+//     fetch("http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect",{
+//       mode:'cors',
+//       credentials:'same-origin',
+//     }).then((res)=>{
+//       console.log(res);
+//     })
+//   }
+
+function GoogleOauth({linkText}){
 
   return (
     <Wrapper>
-      <IconInput>
-        <FontAwesomeIcon icon={faGoogle} size="2x" color="#d2d2d2" />
-      </IconInput>
-      <form onClick={onClickHandler}>
-        <GoogleOauthstyle type="button" value={"Login with Google"} />
-      </form>
+      <GoogleOauthstyle>
+        <IconInput>
+          <FontAwesomeIcon icon={faGoogle} size="2x" color="#d2d2d2" />
+        </IconInput>
+        <TextInput>
+          <a href={GOOGLE_AUTH_URL}>{linkText}</a>
+        </TextInput>
+      </GoogleOauthstyle>
     </Wrapper>
   );
+}
+
+GoogleOauth.propTypes = {
+  linkText: propTypes.string.isRequired
 }
 
 export default GoogleOauth;

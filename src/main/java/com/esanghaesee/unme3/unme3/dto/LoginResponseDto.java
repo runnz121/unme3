@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class LoginResponseDto {
 
-    private String authToken ;
+    private String accessToken ;
     private String tokenType = "Bearer";
 
-    public LoginResponseDto(String authToken){
-        this.authToken = authToken;
+    public LoginResponseDto(String accessToken){
+        this.accessToken= accessToken;
     }
 }

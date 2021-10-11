@@ -1,8 +1,12 @@
 import axios from  'axios';
 
 import {
-    LOGIN_USER, REGISTER_USER, AUTH_USER
+    LOGIN_USER, REGISTER_USER, AUTH_USER, LOGIN_USER2
 } from './types'
+
+import BASE_URL from "../utils/UtilsApi"
+
+
 
 
 export function loginUser(dataToSubmit){
@@ -19,14 +23,29 @@ export function loginUser(dataToSubmit){
     }
 }
 
-export function auth(){
 
-    const request = axios.get('/user/me')
-    .then(response => response.data)
+export function loginUser2(tokenFromBackend) {
+    
+  const request = window.localStorage.setItem('accessToken', tokenFromBackend);
 
+  return {
+    type: LOGIN_USER2,
+    payload: request,
+  };
+}
+
+
+
+export function auth(authToken){
+
+    const request = axios.get('http://localhost:8080/user/me',JSON.stringify(authToken), {
+        headers: { "Content-Type": `application/json` },
+      })
+    .then((response)=> response.data);
+    
     return {
         type: AUTH_USER,
-        payload:request
+        payload: request
     }
 
 }

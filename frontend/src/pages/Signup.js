@@ -102,7 +102,7 @@ function Signup(props) {
             })}
             onChange={clearLoginError}
             name="password"
-            type="text"
+            type="password"
             placeholder="Password"
           />
 

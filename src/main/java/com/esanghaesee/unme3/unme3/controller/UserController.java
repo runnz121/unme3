@@ -17,10 +17,10 @@ public class UserController {
     @Autowired
     private MemberRepository memberRepository;
 
+    //유저 아이디를 반환하는 곳!
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public Member getCurrentUser(@AuthUser UserPrincipal userPrincipal) throws Exception {
-
         return memberRepository.findById(userPrincipal.getId())
                 .orElseThrow(()-> new Exception("not found"));
     }

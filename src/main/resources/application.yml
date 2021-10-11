@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -37,18 +39,11 @@ spring:
               - email
               - profile
 
-
-
-sec:
+app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
     tokenExpiry: 864000000
-
   oauth2:
-    # After successfully authenticating with the OAuth2 Provider,
-    # we'll be generating an auth token for the user and sending the token to the
-    # redirectUri mentioned by the client in the /oauth2/authorize request.
-    # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect

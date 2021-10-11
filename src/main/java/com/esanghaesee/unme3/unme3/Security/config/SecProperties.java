@@ -1,14 +1,16 @@
 package com.esanghaesee.unme3.unme3.Security.config;
 
 
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
-@ConfigurationProperties(prefix = "sec")
+@ConfigurationProperties(prefix = "app")
 public class SecProperties {
 
     private final Auth auth = new Auth();
@@ -37,9 +39,10 @@ public class SecProperties {
     }
 
     public static final class OAuth2 {
+
         private List<String> authorizedRedirectUris = new ArrayList<>();
 
-        private List<String> getAuthorizedRedirectUris() {
+        public List<String> getAuthorizedRedirectUris() {
             return authorizedRedirectUris;
         }
 

@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "sec.oauth2.authorizedRedirectUris",
+      "type": "java.lang.String",
+      "description": "Description for sec.oauth2.authorizedRedirectUris."
+    },
+    {
+      "name": "app.oauth2.authorizedRedirectUris",
+      "type": "java.lang.String",
+      "description": "Description for app.oauth2.authorizedRedirectUris."
+    }
+  ] }

@@ -1,9 +1,12 @@
 package com.esanghaesee.unme3.unme3.Security.config;
 
 
+import com.esanghaesee.unme3.unme3.Security.CookieRepository;
 import com.esanghaesee.unme3.unme3.Security.oauth2.CustomOAuth2UserService;
 import com.esanghaesee.unme3.unme3.Security.CustomUserDetailsService;
 import com.esanghaesee.unme3.unme3.Security.TokenAuthenticationFilter;
+import com.esanghaesee.unme3.unme3.Security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.esanghaesee.unme3.unme3.Security.oauth2.OAuth2AuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,9 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
+    private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
+    @Autowired
+    private CookieRepository cookieRepository;
+
+    @Bean
+    public CookieRepository cookieRepository(){
+        return new CookieRepository();
+    }
 
 
     @Bean
@@ -69,6 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling().authenticationEntryPoint(new AuthEntrypoint())
+                .and()
                 .authorizeRequests().antMatchers("/","/error","/favicon.ico", "/**/*.png",
                         "/**/*.gif",
                         "/**/*.svg",
@@ -80,10 +98,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login().authorizationEndpoint().baseUri("/oauth2/authorize") //front에서 인증 요청uri
+                .authorizationRequestRepository(cookieRepository())
                 .and()
                 .redirectionEndpoint().baseUri("/oauth2/callback/**")//구글 승인된 redirection , http://localhost:8080/oauth2/callback/google., yml에 작성
                 .and()
-                .userInfoEndpoint().userService(customOAuth2UserService);
+                .userInfoEndpoint().userService(customOAuth2UserService)
+                .and()
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler);
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
