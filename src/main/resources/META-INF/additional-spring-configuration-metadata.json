@@ -9,5 +9,15 @@
       "name": "app.oauth2.authorizedRedirectUris",
       "type": "java.lang.String",
       "description": "Description for app.oauth2.authorizedRedirectUris."
+    },
+    {
+      "name": "app.auth.tokenSecret",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.tokenSecret."
+    },
+    {
+      "name": "app.auth.tokenExpiry",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.tokenExpiry."
     }
   ] }

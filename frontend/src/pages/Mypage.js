@@ -4,7 +4,7 @@ import Tab from "../components/Tab"
 
 function Mypage() {
 
-  console.log(localStorage.getItem)
+  console.log(localStorage.getItem('accessToken'))
 
 
   return (

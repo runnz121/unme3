@@ -1,8 +1,7 @@
 package com.esanghaesee.unme3.unme3.domain;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +13,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name="post")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post { //개인이 직접 작성한 글을 넣는 곳
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +36,6 @@ public class Post { //개인이 직접 작성한 글을 넣는 곳
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+
 }

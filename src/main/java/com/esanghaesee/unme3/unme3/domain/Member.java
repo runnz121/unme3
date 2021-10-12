@@ -3,8 +3,7 @@ package com.esanghaesee.unme3.unme3.domain;
 import com.esanghaesee.unme3.unme3.domain.enums.AuthProvider;
 import com.esanghaesee.unme3.unme3.domain.enums.MemberRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "member")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
     @Id
@@ -41,8 +43,6 @@ public class Member {
     private String imageUrl;
 
     //추가
-
-    private String username;
 
     private String phoneNumber;
 

@@ -70,13 +70,14 @@ function Login(props) {
         const tokenFromBackend = response.payload.accessToken;
         //console.log(tokenFromBackend);
         if (tokenFromBackend.length != null) {
+          console.log(tokenFromBackend);
           // const authtoken = (axios.defaults.headers.common[
           //   "Authorization"
           // ] = `Bearer ${tokenFromBackend}`);
           //console.log(authtoken)
           localStorage.setItem('accessToken', tokenFromBackend);
           alert("welcome with loginform");
-          props.history.push("/mypage");
+          props.history.push("/");
         }}).catch( error => {
           alert("not signup user");
         });

@@ -12,5 +12,4 @@ public interface PostRepository extends JpaRepository<Post, Long>, PostRepositor
     //true 옵션 : 그대로 sql 쿼리 사용함
     @Query(value = "select * from post", nativeQuery = true)
     List<Post> loadAllPosts();
-
 }

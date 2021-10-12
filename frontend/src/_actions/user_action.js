@@ -26,7 +26,7 @@ export function loginUser(dataToSubmit){
 
 export function loginUser2(tokenFromBackend) {
     
-  const request = window.localStorage.setItem('accessToken', tokenFromBackend);
+  const request = localStorage.setItem('accessToken', tokenFromBackend);
 
   return {
     type: LOGIN_USER2,

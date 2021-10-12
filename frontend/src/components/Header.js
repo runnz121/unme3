@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React ,{useState} from 'react'
 import styled from 'styled-components';
+import MyProfile from '../pages/MyProfile.js';
 import Input from './Input.js'
+import Home from "../pages/Home"
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
 
@@ -81,15 +86,19 @@ function Header() {
 
     <IconsContainer>
           <Icon>
-          
+            <Link to = "/">
+              <FontAwesomeIcon icon={faHome} size="lg" />
+            </Link>
           </Icon>
           <Icon>
-           
+            <Link to = "/myprofile">
+              <FontAwesomeIcon icon={faUser} size="lg" />
+            </Link>
           </Icon>
           <Icon>
          
           </Icon>
-          </IconsContainer>
+    </IconsContainer>
 
 
       

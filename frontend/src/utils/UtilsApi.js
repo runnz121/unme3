@@ -1,8 +1,8 @@
+ export const API_BASE_URL = "http://localhost:8080";
+ export const ACCESS_TOKEN = "accessToken";
 
-export const API_BASE_URL = "http://localhost:8080";
-export const ACCESS_TOKEN = "accessToken";
 
-const request = (options) => {
+export const request = (options) => {
   const headers = new Headers({
     "Content-Type": "application/json",
   });
@@ -27,12 +27,12 @@ const request = (options) => {
   );
 };
 
-export function getCurrentUser() {
+export async function getCurrentUser() {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     return Promise.reject("No access token set.");
   }
 
-  return request({
+  const res = await request({
     url: API_BASE_URL + "/user/me",
     method: "GET",
   });
@@ -52,4 +52,11 @@ export function signup(signupRequest) {
     method: "POST",
     body: JSON.stringify(signupRequest),
   });
+}
+
+export async function getPosts(){
+  const res =  await request({
+    url: API_BASE_URL + "/post/all",
+    method: "GET"
+  })
 }

@@ -9,8 +9,11 @@ function Check(props) {
   const current = decodeURI(window.location.href);
   const search = current.split("?")[1];
   const params = new URLSearchParams(search);
-  const tokenFromBackend = params.get("token");
+  const tokenFrom= params.get("token")
+  const tokenFromBackend = tokenFrom.substr(0,tokenFrom.length-1);
   const dispatch = useDispatch();
+  
+  console.log(tokenFromBackend);
 
   // const passToken = async() => {
   //    dispatch(loginUser2(tokenFromBackend))
@@ -30,7 +33,7 @@ function Check(props) {
       if(response){
           console.log(response);
           alert("welcome with oauth2");
-          props.history.push("/mypage");}
+          props.history.push("/");}
       else{
         alert("somthoe wrong")
         props.history.push("/login")

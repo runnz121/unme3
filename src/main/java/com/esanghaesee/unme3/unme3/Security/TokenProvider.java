@@ -38,8 +38,8 @@ public class TokenProvider {
     //토큰 파싱하여 id갖고오기
     public Long getUserIdFromtToken(String token){
         Claims claims = Jwts.parser()
-                .setSigningKey(Base64.getEncoder().encodeToString("EsangHaeSee".getBytes()))
-//                .setSigningKey(secProperties.getAuth().getTokenSecret())
+                //.setSigningKey(Base64.getEncoder().encodeToString("EsangHaeSee".getBytes()))
+                .setSigningKey(secProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -51,8 +51,8 @@ public class TokenProvider {
     //인자 토큰값이  secret으로 파싱한거와 가은 경우
     public boolean validateToken(String authToken) {
         try{
-//            Jwts.parser().setSigningKey(secProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
-            Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString("EsangHaeSee".getBytes())).parseClaimsJws(authToken);
+           Jwts.parser().setSigningKey(secProperties.getAuth().getTokenSecret()).parseClaimsJws(authToken);
+//            Jwts.parser().setSigningKey(Base64.getEncoder().encodeToString("EsangHaeSee".getBytes())).parseClaimsJws(authToken);
             return true;
         } catch (JwtException ex){
             ex.printStackTrace();

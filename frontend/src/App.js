@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
 import Home from "./pages/Home.js";
@@ -10,6 +10,7 @@ import Chats from "./pages/chat/Chats.js";
 import SignUp from "./pages/Signup.js"
 import Check from "./pages/Check.js"
 import Admin from "./pages/Admin.js"
+import Userme from "./pages/Userme.js"
 import {getCurrentUser,  ACCESS_TOKEN} from "./utils/UtilsApi.js"
 
 import AuthRoute from "./hoc/AuthRoute";
@@ -18,6 +19,7 @@ import "./App.css";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme, GlobalStyles } from "./styles.js";
+import MyProfile from "./pages/MyProfile";
 
 // import Auth from './hoc/auth'; 
 // import { ConnectedRouter } from "connected-react-router";
@@ -92,17 +94,24 @@ function App() {
       {/* <ThemeProvider theme = {mode ? darkMode : lightMode}> */}
       <ThemeProvider theme={lightTheme}>
         <GlobalStyles />
-        <Router>
+        <BrowserRouter>
           <Switch>
             {/* <ConnectedRouter history={history}> */}
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/userme" component={Userme} />
 
             <Route path="/oauth2/redirect" component={Check} />
             {/* <Route path="/mypage" component = {Mypage}/>
             <Route path="/admin" component = {Admin}/> */}
-
+            <AuthRoute 
+            exact 
+            path="/myprofile" 
+            needAuth={true}
+            component={MyProfile}>
+            </AuthRoute>
+            
             <AuthRoute
               exact
               path="/admin"
@@ -119,7 +128,7 @@ function App() {
               <Chats />
             </Route> */}
           </Switch>
-        </Router>
+        </BrowserRouter>
         {/* </ConnectedRouter> */}
       </ThemeProvider>
     </HelmetProvider>

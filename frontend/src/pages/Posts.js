@@ -1,16 +1,25 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import styled from "styled-components"
+import {API_BASE_URL,request} from "../utils/UtilsApi"
 
 function Posts() {
     const [Posts, setPosts] = useState([]);
 
-    useEffect(()=> {
-        axios
-            .get("http://localhost:8080/post/all")
-            //.then((res) => console.log(res))
-            .then(({data}) => setPosts(data));
-    }, []);
+
+    async function getPosts() {
+      const res = await request({
+        url: API_BASE_URL + "/post/all",
+        method: "GET",
+      })
+      setPosts(res)
+      console.log(res)
+    }
+
+    useEffect(()=>{
+        getPosts()
+    },[])
+
 
 
     const Container = styled.div`
@@ -46,8 +55,9 @@ function Posts() {
             <p>posts</p>
             <Container>
                 <Wrapper>
-                    {Posts.map((post, index) => (
-                        <Sub key ={index}>
+                    {/* Posts.map((post,index) => (<sub key = {index})) 는 안티 패턴으로 비추  */}
+                    {Posts.map((post) => (
+                        <Sub key ={post.id}>
                             <p>{post.title}</p>
                             <p>{post.content}</p>
                             <p>{post.member.username}</p>
