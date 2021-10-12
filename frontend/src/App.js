@@ -29,49 +29,49 @@ import { lightTheme, darkTheme, GlobalStyles } from "./styles.js";
 
 function App() {
 
-  const [auth, setAuth] = useState({
-    currentUser: "",
-    authenticated: false,
-    loading: false,
-  });
+//   const [auth, setAuth] = useState({
+//     currentUser: "",
+//     authenticated: false,
+//     loading: false,
+//   });
 
-  console.log(auth);
-  console.log(auth.authenticated)
+//   console.log(auth);
+//   console.log(auth.authenticated)
 
-  const loadCurrentLogged = () =>{
+//   const loadCurrentLogged = () =>{
 
-    setAuth({
-      loading: true
-    })
+//     setAuth({
+//       loading: true
+//     })
     
-      getCurrentUser()
-      .then((response) => {
-        setAuth({
-          currentUser: response,
-          authenticated: true,
-          loading:false
-        })
-      }).catch(error => {
-        setAuth({
-          loading: false
-        })
-      }
-      );
+//       getCurrentUser()
+//       .then((response) => {
+//         setAuth({
+//           currentUser: response,
+//           authenticated: true,
+//           loading:false
+//         })
+//       }).catch(error => {
+//         setAuth({
+//           loading: false
+//         })
+//       }
+//       );
 
-  }
+//   }
 
-useEffect(()=>{loadCurrentLogged()},[])
+// useEffect(()=>{loadCurrentLogged()},[])
 
 
 
-  const handleLogout =()=> {
-    localStorage.removeItem(ACCESS_TOKEN);
-    setAuth({
-      authenticated: false,
-      currentUser: null,
-    });
-    alert("You're safely logged out!");
-  }
+  // const handleLogout =()=> {
+  //   localStorage.removeItem(ACCESS_TOKEN);
+  //   setAuth({
+  //     authenticated: false,
+  //     currentUser: null,
+  //   });
+  //   alert("You're safely logged out!");
+  // }
 
 
 // const dispatch = useDispatch();
@@ -106,17 +106,15 @@ useEffect(()=>{loadCurrentLogged()},[])
             <AuthRoute
               exact
               path="/admin"
-              authenticated={auth.authenticated}
-              currentUser={auth.currentUser}
+              needAuth={true}
               component={Admin}
             ></AuthRoute>
             <AuthRoute
               exact
               path="/mypage"
-              authenticated={auth.authenticated}
-              currentUser={auth.currentUser}
+              needAuth={true}
               component={Mypage}
-            ></AuthRoute>
+            />
             {/* <Route path={routes.chat} exact>
               <Chats />
             </Route> */}

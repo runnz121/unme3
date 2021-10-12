@@ -67,7 +67,7 @@ function Login(props) {
         email, password,
       }))
       .then(response => {
-        const tokenFromBackend = response.payload.authToken;
+        const tokenFromBackend = response.payload.accessToken;
         //console.log(tokenFromBackend);
         if (tokenFromBackend.length != null) {
           // const authtoken = (axios.defaults.headers.common[

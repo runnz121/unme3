@@ -7,7 +7,7 @@ function Posts() {
 
     useEffect(()=> {
         axios
-            .get("/board")
+            .get("http://localhost:8080/post/all")
             //.then((res) => console.log(res))
             .then(({data}) => setPosts(data));
     }, []);
