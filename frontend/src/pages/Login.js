@@ -13,16 +13,14 @@ import FormBox from "../components/Auth/FormBox";
 import Fonts from "../components/Fonts"
 import Input from "../components/Auth/Input"
 import Btn from "../components/Auth/Btn"
-import routes from '../routes';
+
 import GoogleOauth from '../components/GoogleBox';
 import { loginUser } from '../_actions/user_action';
 import { useDispatch } from 'react-redux';
 
-import {withRouter,Link} from "react-router-dom";
-import axios from 'axios';
+import {withRouter} from "react-router-dom";
 
 
-import { actionCreators as userActions } from "../redux/modules/user";
 
 
 const Container = styled.div`

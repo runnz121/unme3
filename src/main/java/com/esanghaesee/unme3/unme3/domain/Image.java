@@ -2,8 +2,7 @@ package com.esanghaesee.unme3.unme3.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +13,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="image")
 public class Image {
 
@@ -23,12 +25,15 @@ public class Image {
 
     private String imageUrl;
 
+    private String location;
+
+    private String caption;
+
     @CreationTimestamp
     private LocalDateTime createTime;
 
     @UpdateTimestamp
     private LocalDateTime updateTime;
-
 
 
 
@@ -48,5 +53,9 @@ public class Image {
     @JsonIgnore
     private List<Comment> comment;
 
+    @Transient
+    private int likeCount;
 
+    @Transient
+    private int likeState;
 }

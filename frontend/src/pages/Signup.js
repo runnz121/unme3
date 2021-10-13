@@ -6,16 +6,12 @@ import PageTitle from "../components/PageTitle";
 
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import FormError from "../components/FormError";
-import Seperator from "../components/Seperator";
-import BottomBox from "../components/BottomBox";
 import FormBox from "../components/Auth/FormBox";
 import Fonts from "../components/Fonts";
 import Input from "../components/Auth/Input";
 import Btn from "../components/Auth/Btn";
-import routes from "../routes";
 import GoogleOauth from "../components/GoogleBox";
-import { loginUser, registerUser } from "../_actions/user_action";
+import { registerUser } from "../_actions/user_action";
 import { useDispatch } from "react-redux";
 
 import { withRouter } from "react-router-dom";

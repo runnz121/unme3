@@ -2,6 +2,12 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+  #파일 용량 조절
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 20MB
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url : jdbc:mysql://localhost:3306/unme?autoReconnect=true
@@ -53,3 +59,7 @@ jwt:
   secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
 #  header: Authorization
 #  token-validity-in-seconds: 86400
+
+
+file:
+  path: C:\\myproject

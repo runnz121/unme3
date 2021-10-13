@@ -3,9 +3,27 @@ import styled from 'styled-components';
 
 //mypage import
 import Movies from "../pages/Movies";
+import MyFeeds from '../pages/MyFeeds';
 import Posts from "../pages/Posts";
 import Saves from "../pages/Saves";
 import Tags from "../pages/Tags";
+import Upload from '../pages/Upload';
+
+    const TabMenu = styled.ul`
+      padding: 18px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+    `;
+
+    const TabSub = styled.li`
+      padding: 0px 20px;
+      &:hover {
+        cursor: pointer;
+      }
+    `;
+
 
 
 function Tab(){
@@ -18,25 +36,11 @@ function Tab(){
     const arr = [
         {name : 'posts', content : <Posts/>},
         {name : 'movies', content : <Movies/>},
-        {name : 'saves', content : <Saves/>},
+        {name : 'Feed', content : <MyFeeds/>},
         {name : 'tags', content : <Tags/>},
+        {name : 'upload', content : <Upload/>}
 ]
 
-    const TabMenu = styled.ul`
-        padding: 18px 0px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        list-style: none;
-    `;
-
-    const TabSub = styled.li`
-        padding: 0px 20px;
-        &:hover {
-            cursor: pointer;
-        }
-
-    `;
 
     return (
         <>

@@ -40,11 +40,12 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
 
+    //프로필 이미지
     private String imageUrl;
 
     //추가
 
-    private String phoneNumber;
+    private String phonenumber;
 
     @CreationTimestamp
     private LocalDateTime createTime;

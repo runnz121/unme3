@@ -1,3 +1,4 @@
+import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 import Header from "../components/Header";
 import Tab from "../components/Tab"
 
@@ -9,9 +10,10 @@ function Mypage() {
 
   return (
     <div>
+ 
+        <Header />
 
-      <Header/>
-      <Tab/>
+      <Tab />
     </div>
   );
 }

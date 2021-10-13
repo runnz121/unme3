@@ -68,7 +68,7 @@ public class InitDB {
         }
         public void dbInit6(){
             System.out.println("db6 injection");
-            Member member = createMember("userC", "cccccc3","rbbbn3z@naver.com");
+            Member member = createMember("111", "adsf","11@.com");
             em.persist(member);
             Post posts = createPosts(member,"3번" );
             em.persist(posts);

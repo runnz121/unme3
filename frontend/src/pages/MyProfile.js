@@ -6,21 +6,15 @@ import PageTitle from "../components/PageTitle";
 
 import { useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import FormError from "../components/FormError";
-import Seperator from "../components/Seperator";
-import BottomBox from "../components/BottomBox";
 import FormBox from "../components/Auth/FormBox";
 import Fonts from "../components/Fonts";
 import Input from "../components/Auth/Input";
 import Btn from "../components/Auth/Btn";
-import routes from "../routes";
-import GoogleOauth from "../components/GoogleBox";
-import { loginUser, registerUser } from "../_actions/user_action";
-import { useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
-import axios from 'axios';
 
-import {API_BASE_URL,request} from "../utils/UtilsApi"
+import { withRouter } from "react-router-dom";
+
+
+import {request} from "../utils/UtilsApi"
 
 
 const Container = styled.div`
@@ -65,6 +59,7 @@ const ACCESS_TOKEN = "accessToken";
     });
     //console.log(res.id)
     setUserId(res.id);
+    console.log(res);
   }
 
   useEffect(() => {
@@ -77,18 +72,20 @@ const ACCESS_TOKEN = "accessToken";
        const {name, email, password, phonenumber} = getValues();
        
         let data = {
-            id:userId,
-            name:name,
-            email: email,
-            password: password,
-            phonenumber: phonenumber,
-        }
+          id: userId,
+          name: name,
+          email: email,
+          password: password,
+          phonenumber: phonenumber,
+        };
          console.log(data);
         const res = request({
             url: API_BASE_URL + "/user/update",
             method:"PUT",
             body:JSON.stringify(data)
-        }).catch(error =>{
+        })
+        .then(props.history.push("/"))
+        .catch(error =>{
             console.log(error)
         })
         console.log(res)
@@ -141,8 +138,7 @@ const ACCESS_TOKEN = "accessToken";
             placeholder="Password"
           />
           <Input
-            {...register("phonenumber", {
-            })}
+            {...register("phonenumber", {})}
             onChange={clearLoginError}
             name="phonenumber"
             type="text"

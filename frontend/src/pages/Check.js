@@ -1,5 +1,4 @@
 import React ,{useState,useEffect} from 'react'
-import { Redirect } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { loginUser2 } from '../_actions/user_action';
 
@@ -33,7 +32,7 @@ function Check(props) {
       if(response){
           console.log(response);
           alert("welcome with oauth2");
-          props.history.push("/");}
+          props.history.push("/mypage");}
       else{
         alert("somthoe wrong")
         props.history.push("/login")
