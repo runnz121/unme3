@@ -18,13 +18,13 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name="member_id")
-//    private Member member;
-//
-//    @ManyToOne
-//    @JoinColumn(name="member_id")
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name="member_host_id")
+    private Member memberHost;
+
+    @ManyToOne
+    @JoinColumn(name="member_follow_id")
+    private Member memberFollow;
 
     @CreationTimestamp
     private LocalDateTime createTime;

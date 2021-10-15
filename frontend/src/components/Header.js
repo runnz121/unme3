@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Input from './Input.js'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { history } from "react-router-dom";
 
 
     const Wrapper = styled.div`
@@ -45,9 +46,15 @@ import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
     const Icon = styled.span`
       margin-left: 15px;
     `;
+
+      const MouserHover = styled.div`
+        &:hover {
+          cursor: pointer;
+        }
+      `;
       
 
-function Header() {
+function Header(props) {
 
 
     const [search, setSearch] = useState("")
@@ -72,38 +79,55 @@ function Header() {
         });
     }
 
+    const LogOutHandler = (e) =>{
+        const token = localStorage.getItem("accessToken")
+        if(token){
+            localStorage.removeItem("accessToken");
+             alert("Sucessfully Log Out");
+        } else{
+            alert("You alerady logout")
+        }
+       
+    }
 
 
     return (
       <SHeader>
         <Wrapper>
-            <form onSubmit = {onSubmitHandler}>
-                <Input type ='search' value = {search} onChange={onSearchandler}></Input>
-            </form>
-            <Column>
-
-    <IconsContainer>
-          <Icon>
-            <Link to = "/">
-              <FontAwesomeIcon icon={faHome} size="lg" />
-            </Link>
-          </Icon>
-          <Icon>
-            <Link to = "/myprofile">
-              <FontAwesomeIcon icon={faUser} size="lg" />
-            </Link>
-          </Icon>
-          <Icon>
-         
-          </Icon>
-    </IconsContainer>
-
-
-      
-    </Column>
+          <form onSubmit={onSubmitHandler}>
+            <Input
+              type="search"
+              value={search}
+              onChange={onSearchandler}
+            ></Input>
+          </form>
+          <Column>
+            <IconsContainer>
+              <Icon>
+                <Link to="/">
+                  <FontAwesomeIcon icon={faHome} size="lg" />
+                </Link>
+              </Icon>
+              <Icon>
+                <Link to="/myprofile">
+                  <FontAwesomeIcon icon={faUser} size="lg" />
+                </Link>
+              </Icon>
+              <Icon>
+                <Link to="/login">
+                  <FontAwesomeIcon
+                    icon={faSignOutAlt}
+                    size="lg"
+                    onClick={LogOutHandler}
+                  />
+                </Link>
+              </Icon>
+              <Icon></Icon>
+            </IconsContainer>
+          </Column>
         </Wrapper>
       </SHeader>
-    )
+    );
 }
 
 export default Header

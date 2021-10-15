@@ -44,7 +44,6 @@ public class Member {
     private String imageUrl;
 
     //추가
-
     private String phonenumber;
 
     @CreationTimestamp
@@ -63,6 +62,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Save> save = new ArrayList<>();
 
+    //follow는 단방향 맵피
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "member")
 //    private List<Follow> follow = new ArrayList<>();

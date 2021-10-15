@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@AuthenticationPrincipal
+@AuthenticationPrincipal//userprincipal에서 return 한 객체를 받아옴
 public @interface AuthUser {
 
 }
