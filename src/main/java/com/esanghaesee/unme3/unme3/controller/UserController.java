@@ -3,12 +3,11 @@ package com.esanghaesee.unme3.unme3.controller;
 import com.esanghaesee.unme3.unme3.Security.AuthUser;
 import com.esanghaesee.unme3.unme3.Security.UserPrincipal;
 import com.esanghaesee.unme3.unme3.domain.Member;
+import com.esanghaesee.unme3.unme3.dto.MemberDto;
 import com.esanghaesee.unme3.unme3.repository.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,4 +24,11 @@ public class UserController {
         return memberRepository.findById(userPrincipal.getId())
                 .orElseThrow(()-> new Exception("not found"));
     }
+
+
+//    @GetMapping("/user/search")
+//    public Member searchUser(@RequestBody MemberDto memberDto) throws Exception{
+//        return memberRepository.findById(memberDto.getId())
+//                .orElseThrow(() -> new Exception("Cannot find user"));
+//    }
 }

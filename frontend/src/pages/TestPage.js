@@ -1,80 +1,52 @@
-import * as React from "react";
-import axios from "axios";
+import React,{useEffect, useState, useRef} from "react"
+import useFetch from "../components/TestComponent"
+import styled from "styled-components"
 
-const FileUpload = () => {
-  const fileList = []; // 업로드한 파일들을 저장하는 배열
+const CardListContainer = styled.div`
+      width : 100%;
+      height : 100%;
+`;
 
-  const onSaveFiles = (e) => {
-    const uploadFiles = Array.prototype.slice.call(e.target.files); // 파일선택창에서 선택한 파일들
+const Cardd = styled.div`
+      height: 100px;
+      width : 100%;
+      border : 1px solid black;
 
-    uploadFiles.forEach((uploadFile) => {
-      fileList.push(uploadFile);
+`;
 
-      console.log(uploadFile)
-      console.log(fileList)
+const Loading  =styled.div`
+    fontweight: 600;
+
+`;
+
+
+
+const CardList = () => {
+  const [pageNum, setPageNum] = useState(1);
+  const { list, hasMore, isLoading } = useFetch(pageNum);
+  const observerRef = useRef();
+
+  const observer = (node) => {
+    if (isLoading) return;
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && hasMore) {
+        setPageNum((page) => page + 1);
+      }
     });
+
+    node && observerRef.current.observe(node);
   };
-
-
-
-  const onFileUpload = () => {
-    const formData = new FormData();
-
-    fileList.forEach((file) => {
-      // 파일 데이터 저장
-      formData.append("multipartFiles", file);
-    });
-
-    // 객체
-    const foodDto = {
-      name: "피자",
-      price: 13500,
-    };
-
-    formData.append("stringFoodDto", JSON.stringify(foodDto)); // 직렬화하여 객체 저장
-
-    axios.post("http://localhost:8080/uploadFiles", formData);
-  };
-
-  console.log(fileList)
 
   return (
-    <div>
-      <input
-        type="file"
-        multiple
-        /* 파일 여러개 선택 가능하게 하기 */ onChange={onSaveFiles}
-      />
-      <button onClick={onFileUpload}>파일 업로드</button>
-    </div>
+    <CardListContainer>
+      {list?.map((card) => (
+        <Cardd>{card.id}</Cardd>
+      ))}
+      <div ref={observer} />
+      <>{isLoading && <Loading />}</>
+    </CardListContainer>
   );
 };
-
-export default FileUpload;
-
-    // const request1 = (options) => {
-    //     const headers = new Headers({
-    //       "Content-Type": "multipart/form-data",
-    //     });
-
-    //     if (localStorage.getItem(ACCESS_TOKEN)) {
-    //       headers.append(
-    //         "Authorization",
-    //         "Bearer " + localStorage.getItem(ACCESS_TOKEN)
-    //       );
-    //     }
-
-    //     const defaults = { headers: headers };
-    //     options = Object.assign({}, defaults, options);
-
-    //     return fetch(options.url, options).then((response) =>
-    //       response.json().then((json) => {
-    //         if (!response.ok) {
-    //           return Promise.reject(json);
-    //         }
-    //         return json;
-    //       })
-    //     );
-    //   };
-
-
+export default CardList;

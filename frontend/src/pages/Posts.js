@@ -48,7 +48,6 @@ function Posts() {
 
 
 
-
     return (
         <div>
             <p>posts</p>

@@ -62,4 +62,6 @@ public class MemberController {
        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
+
+
 }
