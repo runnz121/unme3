@@ -39,6 +39,7 @@ function Tab(){
         {name : 'Feed', content : <MyFeeds/>},
         {name : 'tags', content : <Tags/>},
         {name : 'upload', content : <Upload/>}
+        
 ]
 
 

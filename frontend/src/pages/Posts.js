@@ -1,72 +1,137 @@
-import React,{useEffect,useState} from 'react'
-import axios from 'axios'
+import React,{useEffect,useState, useRef} from 'react'
 import styled from "styled-components"
-import {API_BASE_URL,request} from "../utils/UtilsApi"
+import useFetch from "../components/PostComponent.js"
+import {Link} from "react-router-dom"
 
 
-    const Container = styled.div`
-      width: 850px;
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%);
-    `;
+const Container = styled.div`
+  width: 850px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+`;
 
-    const Wrapper = styled.div`
-      display: grid;
-      grid-template-columns: repeat(3, minmax(100px, 1fr));
-      gird-gap: px;
-      grid-auto-flow: dense;
-      justify-items: center;
-      align-content: center;
-      justify-content: center;
-    `;
+const Content = styled.div`
+  height: 100px;
+  width : 100%;
+  border : 1px solid black;
 
-    const Sub = styled.div`
-      border: 1px solid;
-      margin: 15px;
-      height: 240px;
-      width: 250px;
-    `;
-
-function Posts() {
-    const [Posts, setPosts] = useState([]);
+`;
 
 
-    async function getPosts() {
-      const res = await request({
-        url: API_BASE_URL + "/post/all",
-        method: "GET",
-      })
-      setPosts(res)
-      console.log(res)
-    }
+const Loading = styled.div`
+  fontweight: 600;
+`;
 
-    useEffect(()=>{
-        getPosts()
-    },[])
+const Posts = () => {
+
+  const [pageNum, setPageNum] = useState(0);
+  const {list, hasMore, isLoading } = useFetch(pageNum); //뿌려주는 데이터, 갖고올 남은 데이터 갯수, 로딩중인지(boolean값)
+
+  const observerRef = useRef();
+    console.log(pageNum);
+    console.log("posts " + list);
+    console.log("hasmore " + hasMore);
+    console.log("isloading " + isLoading);
 
 
+  const options = {
+    root : null,
+    rootMargin: "10px",
+    threshold: 0.5,
+  };
 
+  const observer = (node) => {
+    if (isLoading) return;
+     if (observerRef.current) observerRef.current.disconnect();
 
-    return (
-        <div>
-            <p>posts</p>
-            <Container>
-                <Wrapper>
-                    {/* Posts.map((post,index) => (<sub key = {index})) 는 안티 패턴으로 비추  */}
-                    {Posts.map((post) => (
-                        <Sub key ={post.id}>
-                            <p>{post.title}</p>
-                            <p>{post.content}</p>
-                            <p>{post.member.username}</p>
-                            <p>{post.member.password}</p>
-                            <p>{post.member.email}</p>
-                        </Sub>
-                    ))}
-                </Wrapper>
-            </Container>
-        </div>
-    )
+    observerRef.current = new IntersectionObserver(([ entry ])=> {
+      if (entry.isIntersecting && hasMore){
+        setPageNum((page) => page + 1)
+      }
+    }, options);
+
+    node && observerRef.current.observe(node);
+  }
+
+  console.log(typeof(entry))
+
+  return(
+    <Container>
+      {list?.map((post, idx) => (
+        <Link to ="/test">
+
+        <Content key = {idx}>
+          {post.title}
+          {post.content}
+        </Content>
+
+        </Link>
+
+      ))}
+    <div ref = {observer}/> 
+    <div>{isLoading ? <Loading/> : "Data END"} </div>
+    </Container>
+  );
 }
 
 export default Posts
+
+
+    // const Wrapper = styled.div`
+    //   display: grid;
+    //   grid-template-columns: repeat(3, minmax(100px, 1fr));
+    //   gird-gap: px;
+    //   grid-auto-flow: dense;
+    //   justify-items: center;
+    //   align-content: center;
+    //   justify-content: center;
+    // `;
+
+    // const Sub = styled.div`
+    //   border: 1px solid;
+    //   margin: 15px;
+    //   height: 240px;
+    //   width: 250px;
+    // `;
+
+
+
+//     const [Posts, setPosts] = useState([]);
+
+
+//     async function getPosts() {
+//       const res = await request({
+//         url: API_BASE_URL + "/post/all",
+//         method: "GET",
+//       })
+//       setPosts(res)
+//       console.log(res)
+//     }
+
+//     useEffect(()=>{
+//         getPosts()
+//     },[])
+
+
+
+
+//     return (
+//         <div>
+//             <p>posts</p>
+//             <Container>
+//                 <Wrapper>
+//                     {/* Posts.map((post,index) => (<sub key = {index})) 는 안티 패턴으로 비추  */}
+//                     {Posts.map((post) => (
+//                         <Sub key ={post.id}>
+//                             <p>{post.title}</p>
+//                             <p>{post.content}</p>
+//                             <p>{post.member.username}</p>
+//                             <p>{post.member.password}</p>
+//                             <p>{post.member.email}</p>
+//                         </Sub>
+//                     ))}
+//                 </Wrapper>
+//             </Container>
+//         </div>
+//     )

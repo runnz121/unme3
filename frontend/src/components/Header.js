@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Input from './Input.js'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faPaperPlane, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { history } from "react-router-dom";
 
 
@@ -108,11 +108,19 @@ function Header(props) {
                   <FontAwesomeIcon icon={faHome} size="lg" />
                 </Link>
               </Icon>
+
               <Icon>
                 <Link to="/myprofile">
                   <FontAwesomeIcon icon={faUser} size="lg" />
                 </Link>
               </Icon>
+
+              <Icon>
+                <Link to="/chat">
+                  <FontAwesomeIcon icon={faPaperPlane} size="lg" />
+                </Link>
+              </Icon>
+
               <Icon>
                 <Link to="/login">
                   <FontAwesomeIcon
