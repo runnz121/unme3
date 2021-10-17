@@ -52,6 +52,11 @@ public class PostController {
        return new ResponseEntity<>(postService.pagenationPost(pageable), HttpStatus.OK) ;
     }
 
+    @GetMapping("/find/{postid}")
+    public ResponseEntity<?> selectedPost(@PathVariable("postid") Long postid ){
+        return new ResponseEntity<>(postRepository.findById(postid), HttpStatus.OK);
+    }
+
 
 
 //

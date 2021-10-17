@@ -12,6 +12,7 @@ import Check from "./pages/Check.js"
 import Admin from "./pages/Admin.js"
 import Userme from "./pages/Userme.js"
 import TestPage from "./pages/TestPage.js"
+import Modal from "./components/Modal.js"
 
 
 import AuthRoute from "./hoc/AuthRoute";
@@ -103,6 +104,7 @@ function App() {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/userme" component={Userme} />
             <Route exact path="/test" component={TestPage}/>
+            <Route exact path="/modal" component={Modal}/>
 
             <Route path="/oauth2/redirect" component={Check} />
             {/* <Route path="/mypage" component = {Mypage}/>

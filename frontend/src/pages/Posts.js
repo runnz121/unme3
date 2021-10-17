@@ -1,8 +1,8 @@
 import React,{useEffect,useState, useRef} from 'react'
 import styled from "styled-components"
 import useFetch from "../components/PostComponent.js"
-import {Link} from "react-router-dom"
-
+import { Link, useHistory, useLocation } from "react-router-dom";
+import Modal from "../components/Modal.js"
 
 const Container = styled.div`
   width: 850px;
@@ -15,7 +15,9 @@ const Content = styled.div`
   height: 100px;
   width : 100%;
   border : 1px solid black;
-
+  &:hover{
+    cursor:pointer;
+  }
 `;
 
 
@@ -24,53 +26,116 @@ const Loading = styled.div`
 `;
 
 const Posts = () => {
-
   const [pageNum, setPageNum] = useState(0);
-  const {list, hasMore, isLoading } = useFetch(pageNum); //뿌려주는 데이터, 갖고올 남은 데이터 갯수, 로딩중인지(boolean값)
+  const { list, hasMore, isLoading } = useFetch(pageNum); //뿌려주는 데이터, 갖고올 남은 데이터 갯수, 로딩중인지(boolean값)
+
+  //modal state
+  const [modalState, setModalState] = useState(false);
+  // console.log(modalState)
+
+  const [postId, setPostId] = useState();
+
+  console.log("postId", postId);
+
+  const history = useHistory();
+  const location = useLocation();
 
   const observerRef = useRef();
-    console.log(pageNum);
-    console.log("posts " + list);
-    console.log("hasmore " + hasMore);
-    console.log("isloading " + isLoading);
+  // console.log(pageNum);
+  // console.log("posts " + list);
+  // console.log("hasmore " + hasMore);
+  // console.log("isloading " + isLoading);
 
+  // useEffect(()=>{
+  //   useFetch();
+  // },[])
 
+  //옵션
   const options = {
-    root : null,
+    root: null,
     rootMargin: "10px",
     threshold: 0.5,
   };
 
+  //관찰자
   const observer = (node) => {
     if (isLoading) return;
-     if (observerRef.current) observerRef.current.disconnect();
+    if (observerRef.current) observerRef.current.disconnect();
 
-    observerRef.current = new IntersectionObserver(([ entry ])=> {
-      if (entry.isIntersecting && hasMore){
-        setPageNum((page) => page + 1)
+    observerRef.current = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && hasMore) {
+        setPageNum((page) => page + 1);
       }
     }, options);
 
     node && observerRef.current.observe(node);
-  }
+  };
 
-  console.log(typeof(entry))
+  useEffect(() => {
+    const modalHandling = (e) => {
+      if (modalState) {
+        // e.preventDefault();
+        // console.log("event")
+      }
+      //  console.log("?????")
+    };
+    window.addEventListener("touchmove", modalHandling, {
+      passive: false,
+    });
+    modalHandling();
+    return () => {
+      window.removeEventListener("touchmove", modalHandling);
+    };
+  }, [modalState]);
 
-  return(
+  // console.log("list.id : ", list[0].id);
+  // console.log("uselocation : ", location)
+
+  const openModal = (prop) => {
+    setModalState(true);
+    setPostId(prop)
+  };
+  const closeModal = () => {
+    setModalState(false);
+  };
+
+
+  //   <Container>
+  //   {list?.map((post, idx) => {
+  //       setPostId(post.id);
+  //       return(
+  //     <Content key={idx} onClick={openModal}>
+  //       {post.id}
+  //       {()=>setPostId(post.id)}
+  //       {post.title}
+  // </Content>
+  // )})}
+
+  // <Container>
+  //   {
+  //     list?.map((post, idx) => {
+  //       setPostId(post.id);
+  //       return (
+  //         <Content key={idx} onClick={openModal}>
+  //           {post.id}
+  //           {post.title}
+  //         </Content>
+  //       )
+  //     })
+  //   }
+
+  return (
     <Container>
       {list?.map((post, idx) => (
-        <Link to ="/test">
-
-        <Content key = {idx}>
+        <Content key={idx} onClick={() => {openModal(post.id)}}>
+          {post.id}
           {post.title}
-          {post.content}
         </Content>
-
-        </Link>
-
       ))}
-    <div ref = {observer}/> 
-    <div>{isLoading ? <Loading/> : "Data END"} </div>
+      <Modal data={postId} state={modalState} closeModal={closeModal} />
+
+      <div ref={observer} />
+      <div>{isLoading ? <Loading /> : "Data END"} </div>
     </Container>
   );
 }

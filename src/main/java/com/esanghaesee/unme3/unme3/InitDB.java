@@ -87,6 +87,7 @@ public class InitDB {
         private Post createPosts(Member member, String title){
             return Post.builder()
                     .member(member)
+                    .content("adfasdfasdfasdfasdfasdfasdf")
                     .title(title)
                     .build();
         }
