@@ -90,6 +90,14 @@ function App() {
 //   }
 // }, []);
 
+//토큰 존재시 해당 토큰 삭제 
+if (localStorage.getItem("accessToken")){
+  window.addEventListener("beforeunload", function(e){
+      this.localStorage.removeItem("accessToken")
+  })
+}
+
+
 
   return (
     <HelmetProvider>

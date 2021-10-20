@@ -6,10 +6,19 @@ import Modal from "../components/Modal.js"
 
 const Container = styled.div`
   width: 850px;
-  position: absolute;
+  position: ${props => props.modalOpen ? 'fixed':'absolute'};
+  overflow: ${props => props.modalOpen ? 'hidden' : 'visible'};
   left: 50%;
   transform: translate(-50%);
 `;
+
+// const Wrapper = styled.div`
+//   position: fixed;
+//   width: 100%;
+//   height : 100%;
+//   overflow:hidden;
+//   `;
+
 
 const Content = styled.div`
   height: 100px;
@@ -71,30 +80,32 @@ const Posts = () => {
     node && observerRef.current.observe(node);
   };
 
-  useEffect(() => {
-    const modalHandling = (e) => {
-      if (modalState) {
-        // e.preventDefault();
-        // console.log("event")
-      }
-      //  console.log("?????")
-    };
-    window.addEventListener("touchmove", modalHandling, {
-      passive: false,
-    });
-    modalHandling();
-    return () => {
-      window.removeEventListener("touchmove", modalHandling);
-    };
-  }, [modalState]);
+  // useEffect(() => {
+  //   const modalHandling = (event) => {
+  //     if (event) { //modalState대신 event로 바꿈 (type error undefined preventdefualt)
+  //       event.preventDefault();
+  //       // console.log("event")
+  //     }
+  //     //  console.log("?????")
+  //   };
+  //   window.addEventListener("touchmove", modalHandling, {
+  //     passive: false,
+  //   });
+  //   modalHandling();
+  //   return () => {
+  //     window.removeEventListener("touchmove", modalHandling);
+  //   };
+  // }, [modalState]);
 
-  // console.log("list.id : ", list[0].id);
-  // console.log("uselocation : ", location)
+
+
 
   const openModal = (prop) => {
     setModalState(true);
-    setPostId(prop)
+    setPostId(prop);
+
   };
+
   const closeModal = () => {
     setModalState(false);
   };
@@ -125,9 +136,14 @@ const Posts = () => {
   //   }
 
   return (
-    <Container>
+    <Container modalOpen={modalState}>
       {list?.map((post, idx) => (
-        <Content key={idx} onClick={() => {openModal(post.id)}}>
+        <Content
+          key={idx}
+          onClick={() => {
+            openModal(post.id);
+          }}
+        >
           {post.id}
           {post.title}
         </Content>

@@ -70,22 +70,21 @@ const Modal = (props) => {
   const [rendering, setRendering] = useState("");
 
 
-  console.log("data: ", data);
+  console.log("data next: ", data);
 
-    async function getPosts() {
-        const res = await request({
-          url: API_BASE_URL + `/post/find/${data}`,
-          method: "GET",
-        })
-        setRendering(res)
-        console.log(res)
-      }
 
-      useEffect(()=>{
-          getPosts()
-      },[])
+ function getPosts() {
+  const res = request({
+    url: API_BASE_URL + `/post/find/${data}`,
+    method: "GET",
+  }).then(res => setRendering(res)).catch(error => console.log(error))
+  console.log(res);
+}
+console.log("renderig",rendering)
 
-      console.log(rendering)
+useEffect((data) => {
+  getPosts();
+}, [data]);
 
      
   return state ? (
