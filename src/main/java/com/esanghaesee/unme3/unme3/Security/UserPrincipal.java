@@ -2,12 +2,14 @@ package com.esanghaesee.unme3.unme3.Security;
 
 import com.esanghaesee.unme3.unme3.domain.Member;
 import com.esanghaesee.unme3.unme3.domain.enums.MemberRole;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.*;
+
 
 public class UserPrincipal implements OAuth2User, UserDetails {
 

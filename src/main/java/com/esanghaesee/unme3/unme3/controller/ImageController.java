@@ -79,9 +79,12 @@ public class ImageController {
 
     //https://dev-gorany.tistory.com/17
     //http://localhost:8080/image/images?name=1.png
-    //resourcefile [C:\myproject\unme3\src\main\resources\static\image\1.png]
+    //파라미터로 지정된 파일이름 불러오기
     @GetMapping("/images")
     public ResponseEntity<Resource> display(@RequestParam("name") String filename){
+
+        //https://always-develop.tistory.com/37
+        //filesystem은 절대경로에서 호출
         Resource resource = new FileSystemResource(filepath + filename);
         HttpHeaders header = new HttpHeaders();
         System.out.println("resource" + resource);
@@ -97,11 +100,12 @@ public class ImageController {
 
 
     //TEST 모든 사진 다불러오기
-    //resource[file [C:\myproject\unme3\src\main\resources\static\image\71026a94-ce4e-490d-a5c1-fc0375c68420_121_2715745_1576166736873.jpg]]
+
     @GetMapping("/getAll")
     public ResponseEntity<?> displayAll(@AuthUser UserPrincipal myId) throws Exception{
 
         List<ImageDto> imageNameList = imageService.getAllFeed(myId.getId()); //filename이 담김
+        System.out.println("imageNameList" + imageNameList);
 
         List <Resource> resource = new ArrayList<>();
         HttpHeaders header = new HttpHeaders();

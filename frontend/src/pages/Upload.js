@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { request } from "../utils/UtilsApi";
 import axios from "axios"
 import { set } from 'react-hook-form';
+import reset from 'styled-reset';
 
 
 function Upload() {
@@ -11,7 +12,7 @@ function Upload() {
   const [userId, setUserId] = useState("");
 
   const [file1, setFile1] = useState();
-  const [file2, setFile2] = useState([]);
+  const [file2, setFile2] = useState();
 
   async function getCurrentUser() {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
@@ -89,12 +90,36 @@ function Upload() {
   //이미지 미리보기 처리 까지 같이
   //https://hyunsix.tistory.com/entry/React-input%ED%83%9C%EA%B7%B8%EB%A1%9C-%EC%82%AC%EC%A7%84-%ED%8C%8C%EC%9D%BC-%EC%97%AC%EB%9F%AC%EA%B0%9C-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0-%EA%B0%80%EB%8A%A5%ED%95%98%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0
 
-  const onSubmit3 = (e) => {
-    e.preventDefault();
+  // const encfilename = encodeURIComponent()
 
-    const url = API_BASE_URL + "/image/images?name=1.png";
+  // const onSubmit3 = (e) => {
+  //   e.preventDefault();
+    
+  //   const res = request({
+  //     url: API_BASE_URL + "/image/images?name=1.png",
+  //     method: "GET",
+  //   });
+    
+  //   const b64res = btoa(res);
+  //   const img = new Image();
+  //   const container = document.getElementById("here");
 
-  }
+  //   img.src = 'data:image/png;base64,' + b64res;
+
+  //   img.onload = function(){
+  //     container.appendChild(img);
+  //   }
+
+
+
+  //   // const outputimg = document.createElement('img');
+  //   // outputimg.src = 'data:image/png;base64, ' + b64res;
+  //   // document.body.appendChild(outputimg);
+  // }
+
+
+
+ 
 
 
 
@@ -115,9 +140,13 @@ function Upload() {
       <div>
         이미지 보여지는 곳
         <form onSubmit={onSubmit3}>
-          <h1>File Upload</h1>
+          <h1>show image</h1>
           <button type="submit">show feed </button>
         </form>
+        <div id = "here">
+          <img src={require('http://localhost:8080/image/images?name=1.png')}/>
+          여기
+        </div>
       </div>
     </div>
   );

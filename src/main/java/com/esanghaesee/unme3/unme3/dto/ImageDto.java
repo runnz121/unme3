@@ -4,10 +4,7 @@ package com.esanghaesee.unme3.unme3.dto;
 import com.esanghaesee.unme3.unme3.domain.Image;
 import com.esanghaesee.unme3.unme3.domain.Member;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.ColumnResult;
@@ -20,6 +17,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ImageDto {
 
     private String imageName;
