@@ -11,8 +11,13 @@ public interface FollowRepository extends JpaRepository<Follow, Long>, FollowRep
 
     //https://devhyogeon.tistory.com/4
     @Modifying
-    @Query(value ="INSERT INTO follow(member_host_id, member_follow_id) VALUES(?1, ?2)", nativeQuery= true)
+    @Query(value ="INSERT INTO follow(memberHostId, memberFollowId) VALUES(?2, ?1)", nativeQuery= true)
     void myFollow(Long followId, Long myId);
+
+    @Modifying
+    @Query(value ="DELETE FROM follow WHERE memberHostId = ?2 AND memberFollowId = ?1", nativeQuery= true)
+    void myUnFollow(Long followId, Long myId);
+
 
 
 }

@@ -10,7 +10,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.SqlResultSetMapping;
 import java.util.List;
+
 
 @Data
 @Builder
@@ -18,11 +22,18 @@ import java.util.List;
 @NoArgsConstructor
 public class ImageDto {
 
+    private String imageName;
+
     private String caption;
 
     private String location;
 
     private String tags;
+
+    public ImageDto(String imageName){
+        this.imageName = imageName;
+    }
+
 
     public Image toEntity(String imageUrl, Member member){
         return Image.builder()

@@ -67,7 +67,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         QMember qMember = QMember.member;
 
         queryFactory.update(qMember)
-                .set(qMember.imageUrl, fileName)
+                .set(qMember.profileImage, fileName)
                 .where(hasId(userId))
                 .execute();
     }

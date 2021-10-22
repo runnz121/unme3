@@ -12,7 +12,7 @@ import Check from "./pages/Check.js"
 import Admin from "./pages/Admin.js"
 import Userme from "./pages/Userme.js"
 import TestPage from "./pages/TestPage.js"
-import Modal from "./components/Modal.js"
+import Modal from "./components/PostModal.js"
 
 
 import AuthRoute from "./hoc/AuthRoute";
@@ -90,12 +90,14 @@ function App() {
 //   }
 // }, []);
 
+
+
 //토큰 존재시 해당 토큰 삭제 
-if (localStorage.getItem("accessToken")){
-  window.addEventListener("beforeunload", function(e){
-      this.localStorage.removeItem("accessToken")
-  })
-}
+// if (localStorage.getItem("accessToken")){
+//   window.addEventListener("beforeunload", function(e){
+//       this.localStorage.removeItem("accessToken")
+//   })
+// }
 
 
 

@@ -20,6 +20,8 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       #ddl-auto: create-drop #????? ?? ???? ?? ??? ??? ?? ??
       ddl-auto: create
     properties:
@@ -61,5 +63,7 @@ jwt:
 #  token-validity-in-seconds: 86400
 
 
+# 유저 권한 떄문에 여기로 설정
 file:
-  path: C:\\myproject
+  path: C:\\myproject\\unme3\\src\\main\\resources\\static\\image\\
+

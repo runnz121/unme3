@@ -2,6 +2,7 @@ package com.esanghaesee.unme3.unme3.domain;
 
 import com.esanghaesee.unme3.unme3.domain.enums.AuthProvider;
 import com.esanghaesee.unme3.unme3.domain.enums.MemberRole;
+import com.esanghaesee.unme3.unme3.dto.FollowDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +12,21 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+@SqlResultSetMapping(
+        name = "FollowDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = FollowDto.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "email", type = String.class),
+                        @ColumnResult(name = "profileImage", type = String.class)
+                }
+        )
+)
 
 @Entity
 @Getter
@@ -41,7 +57,7 @@ public class Member {
     private AuthProvider authProvider;
 
     //프로필 이미지
-    private String imageUrl;
+    private String profileImage;
 
     //추가
     private String phonenumber;

@@ -48,9 +48,12 @@ function Upload() {
     setFile1(e.target.files[0]);
   };
   // console.log("file1");
-  // console.log(file1);
+   console.log("단일파일",file1);
+
+
 
   const fileList = []; // 업로드한 파일들을 저장하는 배열
+  console.log("여러파일", fileList)
 
   const fileChange2 = (e) => {
       const uploadFiles = Array.prototype.slice.call(e.target.files); // 파일선택창에서 선택한 파일들
@@ -86,6 +89,15 @@ function Upload() {
   //이미지 미리보기 처리 까지 같이
   //https://hyunsix.tistory.com/entry/React-input%ED%83%9C%EA%B7%B8%EB%A1%9C-%EC%82%AC%EC%A7%84-%ED%8C%8C%EC%9D%BC-%EC%97%AC%EB%9F%AC%EA%B0%9C-%EC%97%85%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0-%EA%B0%80%EB%8A%A5%ED%95%98%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0
 
+  const onSubmit3 = (e) => {
+    e.preventDefault();
+
+    const url = API_BASE_URL + "/image/images?name=1.png";
+
+  }
+
+
+
   return (
     <div>
       <h1>유저 프로필 이미지 업로드</h1>
@@ -100,6 +112,13 @@ function Upload() {
         <input type="file" onChange={fileChange2} name="file" />
         <button type="submit">Upload Feed</button>
       </form>
+      <div>
+        이미지 보여지는 곳
+        <form onSubmit={onSubmit3}>
+          <h1>File Upload</h1>
+          <button type="submit">show feed </button>
+        </form>
+      </div>
     </div>
   );
 }

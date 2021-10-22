@@ -26,7 +26,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private Member updateExistingUser(Member existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setName(oAuth2UserInfo.getName());
-        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        existingUser.setProfileImage(oAuth2UserInfo.getImageUrl());
         return memberRepository.save(existingUser);
     }
 
@@ -37,7 +37,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         member.setProviderId(oAuth2UserInfo.getId());
         member.setName(oAuth2UserInfo.getName());
         member.setEmail(oAuth2UserInfo.getEmail());
-        member.setImageUrl(oAuth2UserInfo.getImageUrl());
+        member.setProfileImage(oAuth2UserInfo.getImageUrl());
         return memberRepository.save(member);
     }
 

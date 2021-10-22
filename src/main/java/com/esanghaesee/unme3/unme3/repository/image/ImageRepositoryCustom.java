@@ -10,7 +10,6 @@ public interface ImageRepositoryCustom {
     //userfeed사진 전체조회
     List<Image> getMyFeedImage(Long userId);
 
-//    void UploadMyFeedImages(Long userId, ImageDto imageDto);
 
 
 }

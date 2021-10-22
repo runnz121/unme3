@@ -1,6 +1,7 @@
 package com.esanghaesee.unme3.unme3.domain;
 
 
+import com.esanghaesee.unme3.unme3.dto.ImageDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +10,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+
+@SqlResultSetMapping(
+        name = "ImageDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = ImageDto.class,
+                columns = {
+                        @ColumnResult(name = "imageName", type = String.class)
+                }
+        )
+)
 
 @Entity
 @Getter
@@ -22,6 +33,8 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String imageName;
 
     private String imageUrl;
 

@@ -2,7 +2,7 @@ import React,{useEffect,useState, useRef} from 'react'
 import styled from "styled-components"
 import useFetch from "../components/PostComponent.js"
 import { Link, useHistory, useLocation } from "react-router-dom";
-import Modal from "../components/Modal.js"
+import Modal from "../components/PostModal.js"
 
 const Container = styled.div`
   width: 850px;

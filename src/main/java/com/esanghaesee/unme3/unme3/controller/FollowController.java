@@ -24,10 +24,25 @@ public class FollowController {
     @Autowired
     private FollowRepository followRepository;
 
-    //내가 following중인 사람들을 불러옴
+
+    //내가 팔로잉 하는 사람
+    @GetMapping("/followingList")
+    public ResponseEntity<?> getMyFollowingList(@AuthUser UserPrincipal myId){
+        List<FollowDto> followingList = followService.myFollowingList(myId.getId());
+        return new ResponseEntity<>(followingList, HttpStatus.OK);
+    }
+
+    //나를 팔로워 하는 사람
+    @GetMapping("/followerList")
+    public ResponseEntity<?> getMyFollowerList(@AuthUser UserPrincipal myId){
+        List<FollowDto> followingList = followService.myFollowerList(myId.getId());
+        return new ResponseEntity<>(followingList, HttpStatus.OK);
+    }
+
+
 //    @GetMapping("/followingList")
-//    public ResponseEntity<?> getMyFollowingList(@PathVariable Long followingUserId, @AuthUser UserPrincipal userPrincipal){
-//        List<FollowDto> followingList = followService.MyFollowingList(followingUserId, userPrincipal.getId());
+//    public ResponseEntity<?> getMyFollowingList(@AuthUser UserPrincipal myId){
+//        List<FollowDto> followingList = followService.myFollowingList(myId.getId());
 //        return new ResponseEntity<>(followingList, HttpStatus.OK);
 //    }
 
@@ -35,6 +50,12 @@ public class FollowController {
     @PostMapping("/follow/{toFollowId}")
     public ResponseEntity<?> follow(@PathVariable Long toFollowId, @AuthUser UserPrincipal myId){
         followService.follow(toFollowId, myId.getId());
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+        return new ResponseEntity<>("follow success",HttpStatus.OK);
+    }
+
+    @DeleteMapping("/follow/{toFollowId}")
+    public ResponseEntity<?> unfollow(@PathVariable Long toFollowId, @AuthUser UserPrincipal myId){
+        followService.unfollow(toFollowId, myId.getId());
+        return new ResponseEntity<>("unfollow success", HttpStatus.OK);
     }
 }

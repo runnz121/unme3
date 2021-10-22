@@ -19,11 +19,11 @@ public class Follow {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="member_host_id")
+    @JoinColumn(name="memberHostId")
     private Member memberHost;
 
     @ManyToOne
-    @JoinColumn(name="member_follow_id")
+    @JoinColumn(name="memberFollowId")
     private Member memberFollow;
 
     @CreationTimestamp
