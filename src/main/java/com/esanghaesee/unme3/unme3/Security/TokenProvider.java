@@ -3,6 +3,7 @@ package com.esanghaesee.unme3.unme3.Security;
 
 import com.esanghaesee.unme3.unme3.Security.config.SecProperties;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class TokenProvider {
 
     private SecProperties secProperties;
 
+    @Autowired
     public TokenProvider(SecProperties secProperties){
         this.secProperties = secProperties;
     }

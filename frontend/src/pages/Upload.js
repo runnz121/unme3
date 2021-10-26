@@ -132,21 +132,14 @@ function Upload() {
         <button type="submit">Upload profile image</button>
       </form>
       <h1>feed 사진 업로드 </h1>
-      <form onSubmit={onSubmit2}>
-        <h1>File Upload</h1>
-        <input type="file" onChange={fileChange2} name="file" />
-        <button type="submit">Upload Feed</button>
-      </form>
-      <div>
-        이미지 보여지는 곳
-        <form onSubmit={onSubmit3}>
-          <h1>show image</h1>
-          <button type="submit">show feed </button>
+        <form onSubmit={onSubmit2}>
+          <h1>File Upload</h1>
+          <input type="file" onChange={fileChange2} name="file" />
+          <button type="submit">Upload Feed</button>
         </form>
-        <div id = "here">
-          <img src={require('http://localhost:8080/image/images?name=1.png')}/>
-          여기
-        </div>
+      <div>
+        
+     
       </div>
     </div>
   );

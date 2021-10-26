@@ -52,6 +52,9 @@ public class MemberController {
     }
 
 
+
+
+
     //유저 프로필 사진 업데이트, 저장
     //파일 업로드시 @Requestaram으로 이용, @RequestBody는 에러 뱉음
     @PostMapping("/profileimage")

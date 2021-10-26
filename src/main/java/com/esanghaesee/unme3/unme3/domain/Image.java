@@ -51,7 +51,7 @@ public class Image {
 
 
     @ManyToOne(fetch = FetchType.EAGER)//누르자마자 바로 호출
-    @JoinColumn(name="member_id") //member클래스의 PK로 자동으로 조인된다. 컬럼을 지정해 주고 싶으면 referencedColumn을 사용하여 처리하면됨
+    @JoinColumn(name="memberId") //member클래스의 PK로 자동으로 조인된다. 컬럼을 지정해 주고 싶으면 referencedColumn을 사용하여 처리하면됨
     private Member member;
 
     @OneToMany(mappedBy = "image", fetch = FetchType.LAZY) //위의 유저가 호출된다음에  쿼리 실행
@@ -62,9 +62,9 @@ public class Image {
     @JsonIgnore
     private List<Likes> likes;
 
-    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Comment> comment;
+//    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Comment> comment;
 
     @Transient
     private int likeCount;

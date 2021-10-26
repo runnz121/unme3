@@ -20,10 +20,6 @@ public class InitDB {
     for (int i = 0; i < 20; i++) {
         initService.dbInit1();
         initService.dbInit2();
-        initService.dbInit3();
-        initService.dbInit4();
-        initService.dbInit5();
-        initService.dbInit6();
     }
     }
 

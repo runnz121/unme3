@@ -73,7 +73,7 @@ const Modal = (props) => {
   console.log("data next: ", data);
 
 
- function getPosts() {
+function getPosts() {
   const res = request({
     url: API_BASE_URL + `/post/find/${data}`,
     method: "GET",
@@ -85,8 +85,7 @@ console.log("renderig",rendering)
 useEffect((data) => {
   getPosts();
 }, [data]);
-
-     
+   
   return state ? (
     <Container>
       <Overlay onClick={(event) => closeModal(event)} />
