@@ -37,7 +37,7 @@ public class TokenProvider {
 
     }
 
-    //토큰 파싱하여 id갖고오기
+    //토큰 파싱하여 id갖고오기Fauth
     public Long getUserIdFromtToken(String token){
         Claims claims = Jwts.parser()
                 //.setSigningKey(Base64.getEncoder().encodeToString("EsangHaeSee".getBytes()))

@@ -8,7 +8,7 @@ import propTypes from "prop-types"
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  lign-items: center;
+  align-items: center;
   justify-content: flex-start;
 `;
 

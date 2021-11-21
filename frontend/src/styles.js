@@ -18,7 +18,6 @@ export const darkTheme = {
 
 export const GlobalStyles = createGlobalStyle`
     ${reset}
-       }
     input {
       all:unset;
     }
@@ -41,6 +40,6 @@ export const GlobalStyles = createGlobalStyle`
     src: local("Ephsis"), url('${Ephesis}') format('woff');
     font-weight:600;
     font-style: normal;
-
+    }
 
 `;

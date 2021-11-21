@@ -13,9 +13,9 @@ spring:
     url : jdbc:mysql://localhost:3306/unme?autoReconnect=true
     username: root
     #localComputer MYSQL
-    password: jongbin121!
+    #password: jongbin121!
     #MAC MYSQL :
-    #password: 698427
+    password: 698427
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
